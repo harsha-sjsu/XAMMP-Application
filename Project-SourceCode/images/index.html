@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Airline Reservation System</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+     <link rel="stylesheet" href="/stylesheets/sweet-alert.css">
+     <style>
+     
+     .input-lg{
+     	width:80%;
+     	height:39px;
+     	padding:10px;
+     	margin-bottom:10px;
+     }
+     body{
+     	padding:0;
+     	background-color: #dfe3ee
+     }
+     .inpmargin{
+     
+     	margin-top:10px;
+     }
+    
+     </style>
+     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	
+	    	<script src="/js/sweet-alert.js"></script>
+	    	<script>
+	    	
+	    	function linkedinController($scope,$http,$location) {
+	    	    
+	    		$scope.signIn = function() {
+	    	    	$http({
+	    	            method: 'POST',
+	    	            url: '/signin',
+	    	            data: { "username": $scope.inputUsername, "password": $scope.inputPassword }
+	    	            
+	    	         }).success(function(response){
+	    	           
+	    	           // alert(JSON.stringify(response));
+	    	            
+	    	            if(response.status == "success")
+	    	           		window.location = '/successLogin';
+	    	            else
+	    	            	sweetAlert("Oops!", response.msg, "error");
+	    	        }).error(function(error){
+	    	        	sweetAlert("Oops!", error, "error");
+	    	        });
+	    	    };
+
+	    	    $scope.signUp = function() {
+	    	    	$http({
+	    	            method: 'POST',
+	    	            url: '/signup',
+	    	            data: { "email": $scope.inputEmailAddress, "password": $scope.inputPassword1 , "firstname": $scope.inputFirstName, "lastname": $scope.inputLastName,"location":$scope.location}
+	    	            
+	    	         }).success(function(response){
+	    	           
+	    	            alert(JSON.stringify(response));
+	    	            
+	    	            if(response.status == "success")
+	    	            	{
+	    	            	//alert(document.getElementById("singupform"));
+	    	            	document.getElementById("singupform").reset();
+	    	           		sweetAlert('succesfully registered please login',"success");
+	    	            
+	    	            	}
+	    	            else{
+	    	            	sweetAlert("Oops!",response.msg,"error");
+	    	            }
+	    	        }).error(function(error){
+	    	        	sweetAlert("Oops!",error,"error");
+	    	        });
+	    	    };
+	    	}
+
+	    	
+	    	</script>
+  		
+ </head>
+  <body ng-app="" ng-controller="linkedinController" >
+    <nav class="navbar navbar-default" style=" background-color: #000000;">
+<div class="col-sm-5"><img src="./images/logo.png" style="margin-left: -15px;margin-top: 0px;" /></div>
+	<form ng-submit="signIn()" id="singinform"> 		
+			 	<div class="col-sm-3  inpmargin">
+			 		
+			        <input type="email"  class="form-control" placeholder="Email Address" name="inputUsername"  required>
+			    </div> 
+			    <div class="col-sm-3 inpmargin">
+			        <input class="form-control" type="password" placeholder="Password" name="inputPassword"  required>
+			    </div> 
+			     <button type ="submit"  class="btn btn-warning inpmargin" >Log in</button>
+			</form>
+	</nav>
+	
+	<div class="row">
+	<div class="col-sm-6"><h2>Find flexible flights all over the world!</h2>
+	<img src="./images/photo.jpg" height="80%" width="90%" alt="Connect"/>
+	</div>
+	
+	
+		<div class="col-sm-6">
+		
+		
+		<h2>Get started  its free.</h2>
+		<h5>Registration takes less than 2 minutes.</h5>
+		<form  id="singupform">
+	
+					<div >
+			        <input  class="form-control input-lg" type="text" placeholder="First Name" name="inputFirstName"  required />
+			   		</div>
+			    	
+	
+					<div >
+			        <input  class="form-control input-lg" type="text" placeholder="Last Name" name="inputLastName"  required />
+			  		</div>
+	 	
+					<div >
+			        <input class="form-control input-lg" type="text" placeholder="Location" name="location"  required  />
+	
+			    </div>
+						
+					<div >
+			        <input  class="form-control input-lg" type="email" placeholder="Email Address" name="inputEmailAddress"  required />
+			    	</div>
+	 
+		    
+	
+					<div >
+			        <input  class="form-control input-lg" type="password" placeholder="Password" name="inputPassword1"  required  />
+	
+			    </div> 
+			    <br/>
+			    <button type ="submit"  class="btn btn-warning" >Join now</button>
+			    <button type ="submit"  class="btn btn-warning" >Continue as Guest </button>
+			  </form>  
+			  
+			  </div>
+		</div>
+		
+		
+<script>
+
+	</script>
+
+  </body>
+</html>
